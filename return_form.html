@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Form</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <video class="vid" autoplay loop muted src="./background.mp4"></video>
+    <header>
+        <ul>
+            <li><a href="new_home.html">Home</a></li>
+            <li><a href="return_form.html">Return</a></li>
+            <li><a href="bill_submission.html">Submit Billing Request</a></li>
+            <li><a href="cust_details.html">Customer Details</a></li>
+            <li><a href="promotion.html">Promotions</a></li>
+            <li><a href="LEADERBOARD.html">Leaderboard</a></li>
+        </ul>
+    </header>
+    <div class="container">
+        <h1>Return Form</h1>
+        <form id="returnForm">
+            <label for="customerId">Customer ID:</label>
+            <input type="text" id="customerId" name="customerId" required>
+
+            <label for="productId">Product ID:</label>
+            <input type="text" id="productId" name="productId" required>
+
+            <label for="category">Product Category:</label>
+            <select id="category" name="category" required>
+                <option value="high">High Ticket</option>
+                <option value="medium">Medium Ticket</option>
+                <option value="low">Low Ticket</option>
+            </select>
+
+            <button type="button" onclick="nextStep()">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function nextStep() {
+            var customerId = document.getElementById('customerId').value;
+            var productId = document.getElementById('productId').value;
+            var category = document.getElementById('category').value;
+
+            if (customerId && productId && category) {
+                var url = '';
+
+                switch (category) {
+                    case 'high':
+                        url = 'high_ticket_policy.html';  // Replace with your actual URL
+                        break;
+                    case 'medium':
+                        url = 'medium_ticket_policy.html';  // Replace with your actual URL
+                        break;
+                    case 'low':
+                        url = 'low_ticket_policy.html';  // Replace with your actual URL
+                        break;
+                }
+
+                window.location.href = url;
+            }
+        }
+    </script>
+</body>
+</html>

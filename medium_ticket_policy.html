@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medium Ticket Policy</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        let currentQuestion = 'first-question'; // Keeps track of the current question
+
+        function showQuestion(questionId) {
+            document.getElementById(questionId).style.display = 'block'; // Show the question
+        }
+
+        function hideQuestion(questionId) {
+            document.getElementById(questionId).style.display = 'none'; // Hide the question
+        }
+
+        function handlePolicyResponse(nextPage) {
+            const form = document.getElementById('policy-form');
+            form.action = nextPage;
+            form.submit();
+        }
+
+        function showNextQuestion(nextQuestion) {
+            hideQuestion(currentQuestion); // Hide the current question
+            currentQuestion = nextQuestion; // Update the current question
+            showQuestion(currentQuestion); // Show the next question
+        }
+
+        function handleYesNoAnswer(nextPage, nextQuestion) {
+            if (nextPage) {
+                handlePolicyResponse(nextPage); // Go to the specified page
+            } else if (nextQuestion) {
+                showNextQuestion(nextQuestion); // Show the next question
+            }
+        }
+    </script>
+</head>
+<body>
+    <video class="vid" autoplay loop muted src="./background.mp4"></video>
+    <header>
+        <ul>
+            <li><a href="new_home.html">Home</a></li>
+            <li><a href="return_form.html">Return</a></li>
+            <li><a href="bill_submission.html">Submit Billing Request</a></li>
+            <li><a href="cust_details.html">Customer Details</a></li>
+            <li><a href="promotion.html">Promotions</a></li>
+            <li><a href="LEADERBOARD.html">Leaderboard</a></li>
+        </ul>
+    </header>
+    <div class="container">
+        <h1>Medium Ticket Return Policy</h1>
+        <form id="policy-form" method="POST">
+            <!-- First Question -->
+            <div id="first-question">
+                <p>Is the item past the refund date?</p>
+                <button type="button" onclick="handlePolicyResponse('partial_refund_policy.html')">Yes</button>
+                <button type="button" onclick="showNextQuestion('replacement-question')">No</button>
+            </div>
+
+            <!-- Replacement Question -->
+            <div id="replacement-question" style="display:none;">
+                <p>Is the product Repairable or Replaceable?</p>
+                <button type="button" onclick="handlePolicyResponse('finish_form.html')">Yes</button>
+                <button type="button" onclick="showNextQuestion('return-option')">No</button>
+            </div>
+
+            <div id="return-option" style="display:none;">
+                <p>Would you prefer a full refund or replacement?</p>
+                <button type="button" onclick="handlePolicyResponse('full_refund_form.html')">Full Refund</button>
+                <button type="button" onclick="handlePolicyResponse('finish_form.html')">Replacement</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

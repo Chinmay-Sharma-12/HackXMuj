@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low Ticket Policy</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        let currentQuestion = 'first-question'; // Keeps track of the current question
+
+        function showQuestion(questionId) {
+            document.getElementById(questionId).style.display = 'block'; // Show the question
+        }
+
+        function hideQuestion(questionId) {
+            document.getElementById(questionId).style.display = 'none'; // Hide the question
+        }
+
+        function handlePolicyResponse(nextPage) {
+            const form = document.getElementById('policy-form');
+            form.action = nextPage;
+            form.submit();
+        }
+
+        function showNextQuestion(nextQuestion) {
+            hideQuestion(currentQuestion); // Hide the current question
+            currentQuestion = nextQuestion; // Update the current question
+            showQuestion(currentQuestion); // Show the next question
+        }
+
+        function handleYesNoAnswer(nextPage, nextQuestion) {
+            if (nextPage) {
+                handlePolicyResponse(nextPage); // Go to the specified page
+            } else if (nextQuestion) {
+                showNextQuestion(nextQuestion); // Show the next question
+            }
+        }
+    </script>
+</head>
+<body>
+    <video class="vid" autoplay loop muted src="./background.mp4"></video>
+    <header>
+        <ul>
+            <li><a href="new_home.html">Home</a></li>
+            <li><a href="return_form.html">Return</a></li>
+            <li><a href="bill_submission.html">Submit Billing Request</a></li>
+            <li><a href="cust_details.html">Customer Details</a></li>
+            <li><a href="promotion.html">Promotions</a></li>
+            <li><a href="LEADERBOARD.html">Leaderboard</a></li>
+        </ul>
+    </header>
+    <div class="container">
+        <h1>Low Ticket Return Policy</h1>
+        <form id="policy-form" method="POST">
+            <!-- First Question -->
+            <div id="first-question">
+                <p>Is the item within the refund window?</p>
+                <button type="button" onclick="showNextQuestion('return-replacement')">Yes</button>
+                <button type="button" onclick="showNextQuestion('out-of-window')">No</button>
+            </div>
+
+            <!-- Return or Replacement Question -->
+            <div id="return-replacement" style="display:none;">
+                <p>Would you like to return or replace the item?</p>
+                <button type="button" onclick="handlePolicyResponse('return_form.html')">Return</button>
+                <button type="button" onclick="handlePolicyResponse('replacement_form.html')">Replacement</button>
+            </div>
+
+            <!-- Out of Refund Window -->
+            <div id="out-of-window" style="display:none;">
+                <p>The item is outside the refund window.</p>
+                <p>If you pay the delivery charge, we can still process a return or replacement. Are you a Prime member?</p>
+                <button type="button" onclick="showNextQuestion('prime-member')">Yes</button>
+                <button type="button" onclick="showNextQuestion('non-prime')">No</button>
+            </div>
+
+            <!-- Prime Member Option -->
+            <div id="prime-member" style="display:none;">
+                <p>As a Prime member, we will deduct points from your loyalty program for the delivery charge. Proceed?</p>
+                <button type="button" onclick="handlePolicyResponse('finish_form.html')">Proceed</button>
+                <button type="button" onclick="handlePolicyResponse('cancel_form.html')">Cancel</button>
+            </div>
+
+            <!-- Non-Prime Member Option -->
+            <div id="non-prime" style="display:none;">
+                <p>To proceed, you will need to pay the delivery charge.</p>
+                <button type="button" onclick="handlePolicyResponse('finish_form.html')">Proceed</button>
+                <button type="button" onclick="handlePolicyResponse('cancel_form.html')">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

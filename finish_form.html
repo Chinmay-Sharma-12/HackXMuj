@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finish Form</title>
+    <style>
+        /* Add CSS styles here or link to styles.css */
+    </style>
+    <script>
+        async function determineReturnPolicy() {
+            const customerId = new URLSearchParams(window.location.search).get('customer_id');
+            const productId = new URLSearchParams(window.location.search).get('product_id');
+
+            const response = await fetch('get_return_rates.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ customerId, productId })
+            });
+
+            const data = await response.json();
+
+            const productReturnRate = data.productReturnRate;
+            const customerReturnRate = data.customerReturnRate;
+
+            let message = '';
+
+            if (productReturnRate > 40 && customerReturnRate > 20) {
+                message = 'Return can be done.';
+            } else if (productReturnRate <= 40 && customerReturnRate > 20) {
+                message = 'Double check return only possible.';
+            } else {
+                message = 'Return can be done.';
+            }
+
+            document.getElementById('return-message').innerText = message;
+
+
+        }
+
+        window.onload = determineReturnPolicy;
+    </script>
+</head>
+
+<body>
+    <video class="vid" autoplay loop muted src="./background.mp4"></video>
+    <header>
+        <ul>
+            <li><a href="new_home.html">Home</a></li>
+            <li><a href="return_form.html">Return</a></li>
+            <li><a href="bill_submission.html">Submit Billing Request</a></li>
+            <li><a href="cust_details.html">Customer Details</a></li>
+            <li><a href="promotion.html">Promotions</a></li>
+            <li><a href="LEADERBOARD.html">Leaderboard</a></li>
+        </ul>
+    </header>
+    <div id="return-message">Processing...</div>
+</body>
+
+</html>

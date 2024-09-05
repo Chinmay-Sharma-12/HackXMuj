@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Submission</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <video class="vid" autoplay loop muted src="./background.mp4"></video>
+    <header>
+        <ul>
+            <li><a href="new_home.html">Home</a></li>
+            <li><a href="return_form.html">Return</a></li>
+            <li><a href="bill_submission.html">Submit Billing Request</a></li>
+            <li><a href="cust_details.html">Customer Details</a></li>
+            <li><a href="promotion.html">Promotions</a></li>
+            <li><a href="LEADERBOARD.html">Leaderboard</a></li>
+        </ul>
+    </header>
+    <div class="container">
+        <h1>Bill Submission</h1>
+        <form action="submit_bill.php" method="post">
+            <label for="employee_id">Employee ID:</label>
+            <input type="text" id="employee_id" name="employee_id" pattern="\d{10}" title="Enter a 10-digit employee ID" required>
+            
+            <label for="hours_worked">Hours Worked:</label>
+            <input type="number" id="hours_worked" name="hours_worked" min="0" max="200" required>
+            
+            <button type="submit">Submit Request</button>
+        </form>
+    </div>
+</body>
+</html>
